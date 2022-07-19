@@ -56,8 +56,6 @@
   "master_data_transform": [
     {
       "sql": "SELECT rz_create_ts, lz_filename, md5_hash, ID, shuiguo as Fruit, jiage as Price FROM raw_fruits",
-      "replay-sql": "SELECT ID, shuiguo as Fruit, jiage + 10 as Price, key_hash, system_created_stamp as row_active_start_ts,LAG(system_created_stamp, -1, cast('9999-12-31 00:00:00.000000+00:00' as timestamp)) OVER(PARTITION BY key_hash ORDER BY key_hash, system_created_stamp) AS row_active_end_ts FROM raw_fruits",
-      "replay-pre-check": "cddp_fruit_app_customers.customer_1.master_replay_pre_check",
       "target": "fruits",
       "partition_keys": "ID",
       "key_cols": "ID",

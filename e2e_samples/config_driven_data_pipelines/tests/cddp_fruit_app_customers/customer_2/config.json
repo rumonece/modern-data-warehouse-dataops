@@ -90,8 +90,6 @@
   "master_data_transform": [
     {
       "sql": "SELECT rz_create_ts, lz_filename, md5_hash, ID, shuiguo as Fruit, yanse as Colour, jiage as Price FROM raw_fruits_1",
-      "replay-sql": "SELECT ID, shuiguo as Fruit, jiage + 10 as Price, yanse as Colour, md5_hash, rz_create_ts as row_active_start_ts,LAG(rz_create_ts, -1, cast('9999-12-31 00:00:00.000000+00:00' as timestamp)) OVER(PARTITION BY md5_hash ORDER BY md5_hash, rz_create_ts) AS row_active_end_ts FROM raw_fruits_1",
-      "replay-pre-check": "tests.cddp_fruit_app_customers.customer_2.master_data_replay_pre_check",
       "target": "fruits_1",
       "partition_keys": "ID,Fruit",
       "key_cols": "ID",
@@ -103,7 +101,6 @@
     },
     {
       "sql": "SELECT rz_create_ts, lz_filename, md5_hash, ID, shuiguo as Fruit, yanse as Colour, jiage as Price FROM raw_fruits_3",
-      "replay-sql": "SELECT ID, shuiguo as Fruit, jiage + 10 as Price, yanse as Colour, md5_hash, rz_create_ts as row_active_start_ts,LAG(rz_create_ts, -1, cast('9999-12-31 00:00:00.000000+00:00' as timestamp)) OVER(PARTITION BY md5_hash ORDER BY md5_hash, rz_create_ts) AS row_active_end_ts FROM raw_fruits_3",
       "target": "fruits_3",
       "partition_keys": "",
       "key_cols": "ID",
